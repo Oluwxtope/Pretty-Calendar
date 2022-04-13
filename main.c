@@ -1,19 +1,7 @@
-///////////////////////////////////////////////////////////////////////////// 
-// INTEGRITY STATEMENT (v3)
-//
-// By signing your name and ID below you are stating that you have agreed
-// to the online academic integrity statement:
-// https://student.cs.uwaterloo.ca/~cs136/current/assignments/integrity.shtml
-/////////////////////////////////////////////////////////////////////////////
-// I received help from and/or collaborated with: 
- 
-  // NONE 
-//  
-// Name: Oluwatope Alofe
-// login ID: oealofe 
-///////////////////////////////////////////////////////////////////////////// 
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
 
-#include "cs136.h"
 // This program uses the Gregorian calendar to test the validity
 //   of dates between the years 1589 and 2999, calculate the day
 //   of the week of valid dates, and print out calendars
@@ -236,12 +224,24 @@ void assertion_tests(void) {
 
 int main(void) {
   assertion_tests();
-  while (1) {
-    int year = read_int();
-    int month = read_int();
-    if (month == READ_INT_FAIL) {
-      break;
+  int year = 0;
+  char slash = '/';
+  int month = 0;
+
+  while (true) {
+    printf("Insert date formatted like YYYY/DD: \n");
+    int read_year = scanf("%d", &year);
+    char read_slash = scanf("%c", &slash);
+    int read_month = scanf("%d", &month);
+    
+    if (read_year != 1 || read_slash != 1 || slash != '/' || read_month != 1) {
+      printf("Invalid date format. Try again! \n");
+      continue;
+    } else if (month < 1 || month > 12 || year < 1589 || year > 2999) {
+      printf("Invalid date. Try again! \n");
+      continue;
     }
-    print_calendar(year, month);
+    break;
   }
+  print_calendar(year, month);
 }
